@@ -59,7 +59,8 @@ I use a per-refactoring session layout to maintain a clear plan and state.
 
 ## Phase 2: Strategic Planning
 
-Based on the initial analysis, I will create a detailed refactoring plan inside the session folder's `plan.md`:
+- Do a comprehensive analysis of the ${input:source} and project structure.
+- Based on the analysis, I will create a detailed implementation plan inside the feature folder's `plan.md`:
 
 ```markdown
 # Refactoring Plan - [timestamp]
@@ -80,7 +81,26 @@ Based on the initial analysis, I will create a detailed refactoring plan inside 
 - **Non-Goals**: [What will not be changed, e.g., "API signature will remain the same"]
 
 ## Refactoring Tasks
-[A prioritized checklist of small, verifiable refactoring steps.]
+Create a prioritized checklist of TDD cycles. Each task must be a **self-contained, actionable recipe** for the implementation phase.[A prioritized checklist of TDD cycles (test + implementation steps + Technical Specifications
+
+**For each task, you MUST:**
+1.  **Provide Granular Steps:** Break down the task into a clear, step-by-step sequence for testing and implementation.
+2.  **Embed Specifics Directly:** If the `${input:source}` provides critical details such as **prompts, data formats, code snippets, or configuration examples**, you **must** embed them directly within the relevant task's description. Do not just refer to them abstractly.
+3.  **Preserve References:** If the `${input:source}` mentions a specific section (e.g., `[reference](#references)`), a file path, or an external link for context (e.g., `check context7 of "modelcontextprotocol/python-sdk" for code example`), you **must** include that exact reference in the plan.
+4.  **Clarify LLM Calls:** For any step involving an LLM, specify the function to be called, the expected input format (with an example if provided in the source), and the prompt to be used.
+
+### Example of a well-formed task:
+```markdown
+- [ ] **Task 1.1**: HTTP endpoints duplication quick check
+      - **Test:** Write a failing test for `quick_check_http_endpoints`.
+      - **Implement:** Create the `quick_check_http_endpoints` function.
+      - **Step 1:** Get all routes and metadata from `src.crypto_data_tools.main`.
+      - **Step 2:** Format the endpoint metadata into the required JSON input format as specified in the source document's section titled "**Format of Input to Duplication Checks**".
+      - **Step 3:** Call the LLM service using the exact prompt from the source document's section titled "**Prompt for Duplication Checks**".
+      - **Step 4:** If duplicates are found, print the results and exit the script as per the source's restrictions.
+      - **Step 5:** Implement the `no-fast-check` parameter to bypass this step.
+```
+
 
 ## Validation Checklist
 - [ ] All existing tests are passing.
@@ -104,10 +124,10 @@ You must follow a strict, test-driven cycle for the entire refactoring process. 
     *   If test coverage is insufficient to prevent regressions, write new tests to cover the existing behavior **before** refactoring. Ensure these new tests pass.
 3.  **(🔵 REFACTOR) Make a Small Change:** Apply one small, incremental refactoring step. This could be renaming a variable, extracting a method, or simplifying a conditional.
 4.  **(🟢 TEST) Run Tests:** Immediately run the test suite again. **All tests must pass.** If any test fails, revert the change and try a different approach. Do not proceed until the tests are green.
-5.  **Repeat:** Continue this Verify-Refactor-Test cycle for the next task in `plan.md`. Incrementally improve the code until all refactoring goals are met.
-6.  **Documentation:** After finishing the entire plan, update any relevant documentation to reflect the changes, including code comments, READMEs, and design documents.
-7.  **AI usage & implementation records:** After finishing the entire plan, create or update the corresponding implementation document under `ai-implementation/` with the type "Refactor".
-
+5.  **Repeat:** Continue this Verify-Refactor-Test cycle for the next task in `plan.md`. Incrementally improve the code until all refactoring goals are met. Update `plan.md` checklist when progress is made.
+6.  **Documentation:** After finishing the entire plan in `plan.md`, search the project for any relevant documentation to the refactored code, including code comments, READMEs, and API documentation, and update them as needed.
+7.  **AI usage & implementation records:** After finishing the entire plan in `plan.md`, follow the [strict-rules--conventions](../copilot-instructions.md#strict-rules--conventions) for documenting AI usage and implementation details.
+    
 -----
 
 ## Phase 4: Quality Assurance & Validation
@@ -118,7 +138,7 @@ I will ensure the refactoring meets your standards. The following deep validatio
 
 1.  Deeply analyze the original code and document its state in `refactoring/{...}/pre-refactor-analysis.md`.
 2.  Verify the final code against the goals in `plan.md`.
-3.  Run the complete test suite for the entire project to check for unintended side effects.
+3.  Run the complete test suite for the entire project to check for unintended side effects. Do not create simple tests when you encounter a time constraint or complex scenarios. Don't be lazy.
 4.  Scan for TODOs, incomplete work, and potential bugs.
 5.  Produce a final report comparing the pre- and post-refactoring states, including metrics like complexity and test coverage.
 
@@ -132,11 +152,11 @@ I will ensure the refactoring meets your standards. The following deep validatio
 *   **Adherence to Plan:** Do not deviate from the specifications in the refactoring `plan.md`.
 *   **Session-Based Work:** All work must be done within the context of a session folder inside `refactoring/`.
 *   **Clean Code:** Produce code that is more readable, maintainable, and efficient than the original.
-*   **Global Rules:** Follow all global rules and guidelines in `../copilot-instructions.md` established for the project.
+*   **Global Rules:** Follow all global rules and guidelines in [instructions](../copilot-instructions.md) established for the project.
 
 -----
 
-## ✅ Success Criteria
+## ✅ Su
 
 This task is considered complete when:
 
