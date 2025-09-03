@@ -16,7 +16,7 @@ The source of truth for this task can be URLs, local file paths, or a descriptio
 -----
 ## ⚙️ Overall Workflow
 
-- Read all `/technical_design` and their `/ai-implementation` record document from latest August date to know recent change, if the filename can't infer date, use the modified time of the file to infer the date.
+- Read all `/technical_design` and their `/ai-implementation` record document from latest month date to know recent change, if the filename can't infer date, use the modified time of the file to infer the date.
 - Follow the guidelines defined in [copilot-instructions](../copilot-instructions.md)
 - Fix failed tests in the `${input:source}`, then run project all test to fix other failed and skipped tests.
 - Fixing does't mean the source code need to change, it could be just the test code need to be changed, carefully review finished features/refactor/fix document before source code is acturally need to change, these document are the standard to make decisions.
